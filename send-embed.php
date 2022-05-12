@@ -15,17 +15,10 @@ $mail->Port = 465;
 $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
 $mail->SMTPAuth = true;
 $mail->AuthType = 'XOAUTH2';
-$email = $_SESSION['email']; // the email used to register google app
-$clientId = $_SESSION['clientId'];
-$clientSecret =  $_SESSION['clientSecret'];
-
-// $refreshToken = '1//0gqhm4cAxbDFFCgYIARAAGBASNwF-L9IrtANSOcWmjBxMAT9G3QkxU0D-LqyhgJwk0B_ZMytAdx9zMYgYZMQhuhGjmI2PS33-320';
-if (array_key_exists('token', $_GET) && $_GET['token'] !=null) {
-    $refreshToken = $_GET['token'];
-}else{
-    echo '<h3 style="color:red;text-align:center"> Please provide the Token </h3>'; die();
-}
-
+$email = '<<valid sender mail>>'; // the email used to register google app
+$clientId ='<<client Id>>';
+$clientSecret ='<<client secret>>';
+$refreshToken ='<<token>>';
 //Create a new OAuth2 provider instance
 $provider = new Google(
     [
@@ -47,15 +40,15 @@ $mail->setOAuth(
     )
 );
 
-$mail->setFrom($email, 'FROM_NAME');
-$mail->addAddress('akhtwe@global-connect.asia', 'Charrtoo');
+$mail->setFrom($email, 'Mail From XOAuth2');
+$mail->addAddress('akhtwe@global-connect.asia', 'AKHtwe');
 $mail->isHTML(true);
 $mail->Subject = 'Email Subject XOAuth2';
 $mail->Body = '<b>Dear, <br><br>Email Body <br> Sending with by XOAuth2 Token </b>';
 
 //send the message, check for errors
 if (!$mail->send()) {
-    echo '<h3 style="color:red;padding-top:30px;">Mailer Error:</h3> <div style="border:1px solid black;">' . $mail->ErrorInfo . '</div>';
+    echo '<h3 style="color:red;padding-top:30px;">Mailer Error:</h3> <div style="border:1px solid black;padding:20px;">' . $mail->ErrorInfo . '</div>';
 } else {
-    echo '<h3 style="color:green;text-align:center;padding-top:30px;"> Message sent! <br> <a href="/" > <b>Back</b></a></h3>';
+    echo '<h3 style="color:green;text-align:center;padding-top:30px;"> Message sent! <br> <a href="/" > <small>Back</small></a></h3>';
 }
